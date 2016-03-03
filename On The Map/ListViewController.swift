@@ -10,9 +10,12 @@ import UIKit
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var studentTableView: UITableView!
+    
     // MARK: - UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadStudentInformation()
     }
     
     // MARK: - Table View DataSource and Delegate
@@ -66,23 +69,17 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     // MARK: - Helpers
     /* Helper function that calls the ParseClient to load student information */
     func loadStudentInformation() {
-        ParseClient.sharedInstance().getStudentLocations(100, skip: nil, order: nil) {(studentInfo, error) in
+        ParseClient.sharedInstance().getStudentLocations(100, skip: nil, order: "-updatedAt") {(studentInfo, error) in
             if let studentInfo = studentInfo {
                 StudentInformation.Students = studentInfo
-               // self.populateMap()
                 print("Loading Student Information")
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.studentTableView.reloadData()
+                }
             } else {
-                self.displayError(error?.localizedDescription)
+                self.displayError("Sorry, there was an error loading student information")
             }
-        }
-    }
-    
-    /* Display an error message in an alert */
-    func displayError(errorMessage: String?) {
-        dispatch_async(dispatch_get_main_queue()) {
-            let alert = UIAlertController(title: "Error", message: errorMessage!, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
 }

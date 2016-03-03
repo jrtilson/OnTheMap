@@ -10,14 +10,13 @@ import UIKit
 
 class OnTheMapTabBarController: UITabBarController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    
     // MARK: - Actions
     
+    /* Post info button */
+    @IBAction func postButtonTapped(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("showPostViewController", sender: self)
+    }
+
     /* Handle logout */
     @IBAction func logoutButtonTapped(sender: UIBarButtonItem) {
         UdacityClient.sharedInstance().deleteSession() { (success, error) in
@@ -27,10 +26,6 @@ class OnTheMapTabBarController: UITabBarController {
                 self.displayError(error?.localizedDescription)
             }
         }
-    }
-    
-    /* Add pin button */
-    @IBAction func addPinButtonTapped(sender: UIBarButtonItem) {
     }
     
     /* Refresh button */
@@ -51,16 +46,6 @@ class OnTheMapTabBarController: UITabBarController {
         dispatch_async(dispatch_get_main_queue()) {
             // Show the login view controller
             self.navigationController?.performSegueWithIdentifier("showLoginViewController", sender: self)
-        }
-    }
-    
-    /* Display an error message in an alert */
-    func displayError(errorMessage: String?) {
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            let alert = UIAlertController(title: "Error", message: errorMessage!, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
 }

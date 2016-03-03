@@ -77,13 +77,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     /* Helper function that calls the ParseClient to load student information */
     func loadStudentInformation() {
-        ParseClient.sharedInstance().getStudentLocations(100, skip: nil, order: nil) {(studentInfo, error) in
+        ParseClient.sharedInstance().getStudentLocations(100, skip: nil, order: "-updatedAt") {(studentInfo, error) in
             if let studentInfo = studentInfo {
                 StudentInformation.Students = studentInfo
                 self.populateMap()
                 print("Loading Student Information")
             } else {
-                self.displayError(error?.localizedDescription)
+                self.displayError("Sorry, there was an error loading student information")
             }
         }
     }
@@ -123,15 +123,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
             // When the array is complete, we add the annotations to the map.
             self.mapView.addAnnotations(annotations)
-        }
-    }
-    
-    /* Display an error message in an alert */
-    func displayError(errorMessage: String?) {
-        dispatch_async(dispatch_get_main_queue()) {
-            let alert = UIAlertController(title: "Error", message: errorMessage!, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
 }

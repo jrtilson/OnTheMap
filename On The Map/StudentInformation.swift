@@ -30,8 +30,7 @@ struct StudentInformation {
         mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
     }
     
-    // MARK: - Helpers
-    
+    // MARK: - Helpers    
     /* Helper: Given an array of dictionaries, convert them to an array of TMDBMovie objects */
     static func infoFromResults(results: [[String : AnyObject]]) -> [StudentInformation] {
         var info = [StudentInformation]()

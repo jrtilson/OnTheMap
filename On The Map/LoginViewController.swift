@@ -25,15 +25,12 @@ class LoginViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func loginButtonTapped(sender: UIButton) {
-        
         // Make sure we've got text in username/password
-       guard let username = emailTextField.text where !username.isEmpty, let password = passwordTextField.text where !password.isEmpty else {
-           displayError("Username and password are required!");
-           return
-       }
-       
-       
-       
+        guard let username = emailTextField.text where !username.isEmpty, let password = passwordTextField.text where !password.isEmpty else {
+            displayError("Username and password are required!");
+            return
+        }
+        
         UdacityClient.sharedInstance().authenticateWithUsernameAndPassword(username, password: password) { (success, error) in
             if success {
                 self.completeLogin()
@@ -51,16 +48,6 @@ class LoginViewController: UIViewController {
     
     
     // MARK: - Helpers
-    
-    /* Display an error message in an alert */
-    func displayError(errorMessage: String?) {
-        dispatch_async(dispatch_get_main_queue()) {
-            let alert = UIAlertController(title: "Error", message: errorMessage!, preferredStyle: UIAlertControllerStyle.Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
     /* Complete login */
     func completeLogin() {
         dispatch_async(dispatch_get_main_queue()) {
