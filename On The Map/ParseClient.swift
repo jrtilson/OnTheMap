@@ -10,7 +10,7 @@ import Foundation
 
 class ParseClient: BaseClient {
     // MARK: - Constants
-    struct Methods { // Method constants
+    struct Methods {
         static let StudentLocation = "StudentLocation"
     }
     

@@ -35,10 +35,12 @@ class OnTheMapTabBarController: UITabBarController {
     
     /* Refresh button */
     @IBAction func refreshButtonTapped(sender: UIBarButtonItem) {
-        if let viewController = self.selectedViewController as! MapViewController? {
-            viewController.loadStudentInformation()
-        } else if let viewController = self.selectedViewController as! ListViewController? {
-            
+        if self.selectedViewController!.isKindOfClass(MapViewController) {
+            let vc = self.selectedViewController as! MapViewController
+            vc.loadStudentInformation()
+        } else  if self.selectedViewController!.isKindOfClass(ListViewController) {
+            let vc = self.selectedViewController as! ListViewController
+            vc.loadStudentInformation()
         }
     }
     

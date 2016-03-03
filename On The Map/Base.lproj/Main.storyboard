@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -128,9 +128,68 @@
                     <view key="view" contentMode="scaleToFill" id="KDz-MP-TkA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jb2-Yo-evz">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StudentCell" textLabel="PMK-aW-z6h" style="IBUITableViewCellStyleDefault" id="geN-ch-zDg">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="geN-ch-zDg" id="U2f-j8-Hs4">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PMK-aW-z6h">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact">
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="64I-EC-buO" id="xaO-wh-qaK"/>
+                                    <outlet property="delegate" destination="64I-EC-buO" id="KQ8-92-Rpb"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="jb2-Yo-evz" secondAttribute="trailing" constant="-20" id="Q9D-pO-EeE"/>
+                            <constraint firstItem="jb2-Yo-evz" firstAttribute="top" secondItem="yKw-lk-Fmx" secondAttribute="bottom" id="Vu6-jS-4Gn"/>
+                            <constraint firstItem="jb2-Yo-evz" firstAttribute="leading" secondItem="KDz-MP-TkA" secondAttribute="leadingMargin" constant="-20" id="j2f-4T-2H6"/>
+                            <constraint firstItem="9JD-yh-kd6" firstAttribute="top" secondItem="jb2-Yo-evz" secondAttribute="bottom" id="vXq-K1-von"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="jb2-Yo-evz"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Q9D-pO-EeE"/>
+                                <exclude reference="Vu6-jS-4Gn"/>
+                                <exclude reference="j2f-4T-2H6"/>
+                                <exclude reference="vXq-K1-von"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="jb2-Yo-evz"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Q9D-pO-EeE"/>
+                                <include reference="Vu6-jS-4Gn"/>
+                                <include reference="j2f-4T-2H6"/>
+                                <include reference="vXq-K1-von"/>
+                            </mask>
+                        </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="List" id="PjR-Ql-SZU"/>
+                    <tabBarItem key="tabBarItem" title="List" image="List" id="PjR-Ql-SZU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dza-fb-4On" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -167,6 +226,9 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="FkO-zD-GNy">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <connections>
+                                    <outlet property="delegate" destination="ebA-FK-anl" id="pb4-PW-rwI"/>
+                                </connections>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -199,7 +261,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" id="1Sr-lv-dxc"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="Location" id="1Sr-lv-dxc"/>
                     <connections>
                         <outlet property="mapView" destination="FkO-zD-GNy" id="bc5-7b-nTi"/>
                     </connections>
@@ -224,7 +286,7 @@
                                     <action selector="refreshButtonTapped:" destination="WXm-oH-a8c" id="GSc-kf-O8l"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="add" id="RJs-KI-1tf">
+                            <barButtonItem image="Location" id="RJs-KI-1tf">
                                 <connections>
                                     <action selector="addPinButtonTapped:" destination="WXm-oH-a8c" id="684-8D-1Kc"/>
                                 </connections>
@@ -246,4 +308,8 @@
             <point key="canvasLocation" x="2497.5" y="659.25"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="List" width="25" height="25"/>
+        <image name="Location" width="25" height="25"/>
+    </resources>
 </document>

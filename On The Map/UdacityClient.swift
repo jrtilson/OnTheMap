@@ -11,7 +11,7 @@ import Foundation
 class UdacityClient: BaseClient {
     
     // MARK: - Constants
-    struct Methods { // Method constants
+    struct Methods { 
         static let Session = "session"
         static let User = "users/{id}"
     }
