@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Outlets
 
@@ -20,6 +20,14 @@ class LoginViewController: UIViewController {
         
         // Turn off pesky autocorrect for email field
         emailTextField.autocorrectionType = UITextAutocorrectionType.No
+        
+        // Set textfield delegates
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        
+        // Add a gesture recognizer to look for taps, to close the keyboard
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
     }
 
     // MARK: - Actions
@@ -33,7 +41,14 @@ class LoginViewController: UIViewController {
         
         UdacityClient.sharedInstance().authenticateWithUsernameAndPassword(username, password: password) { (success, error) in
             if success {
-                self.completeLogin()
+                UdacityClient.sharedInstance().getAuthenticatedUserData() {
+                    (success, error) in
+                    if (success) {
+                        self.completeLogin()
+                    } else {
+                        self.displayError("Couldn't load your user data!")
+                    }
+                }
             } else {
                 var errorString = "Sorry, there was a network error";
                 
@@ -54,6 +69,17 @@ class LoginViewController: UIViewController {
             // Show the main tab bar controller
             self.performSegueWithIdentifier("showTabBarViewController", sender: self)
         }
+    }
+    
+    /* Called when a tap is recognized */
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
     }
 }
 

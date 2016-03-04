@@ -380,11 +380,25 @@ today?</string>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F8r-ig-fZc">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="29"/>
+                                        <state key="normal" title="Submit">
+                                            <color key="titleColor" red="0.1215686275" green="0.12941176469999999" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="72" y="617" width="260" height="30"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="submitButtonTapped:" destination="58G-98-LKU" eventType="touchUpInside" id="4Ib-nn-CqH"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="8DG-Vx-XPQ" firstAttribute="leading" secondItem="wLU-ui-uar" secondAttribute="leading" constant="8" id="77y-av-ODb"/>
+                                    <constraint firstAttribute="bottom" secondItem="F8r-ig-fZc" secondAttribute="bottom" constant="89" id="EyF-kY-o46"/>
                                     <constraint firstItem="gCu-Qd-W0Z" firstAttribute="leading" secondItem="wLU-ui-uar" secondAttribute="leading" id="K6R-HX-YK0"/>
                                     <constraint firstItem="8DG-Vx-XPQ" firstAttribute="top" secondItem="wLU-ui-uar" secondAttribute="top" constant="20" id="M6J-bu-wuh"/>
                                     <constraint firstAttribute="trailing" secondItem="8DG-Vx-XPQ" secondAttribute="trailing" constant="8" id="T3I-t4-d9k"/>
@@ -393,11 +407,14 @@ today?</string>
                                     <constraint firstItem="gCu-Qd-W0Z" firstAttribute="top" secondItem="wLU-ui-uar" secondAttribute="top" constant="195" id="eVj-EG-x20"/>
                                     <constraint firstAttribute="bottom" secondItem="gCu-Qd-W0Z" secondAttribute="bottom" id="eza-tD-u5Y"/>
                                     <constraint firstItem="gCu-Qd-W0Z" firstAttribute="top" secondItem="8DG-Vx-XPQ" secondAttribute="bottom" constant="41" id="iqq-Rq-AB3"/>
+                                    <constraint firstItem="F8r-ig-fZc" firstAttribute="leading" secondItem="wLU-ui-uar" secondAttribute="leading" constant="72" id="mOG-Mu-vUt"/>
+                                    <constraint firstAttribute="trailing" secondItem="F8r-ig-fZc" secondAttribute="trailing" constant="72" id="v11-AG-WSW"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="subviews">
                                         <exclude reference="gCu-Qd-W0Z"/>
                                         <exclude reference="8DG-Vx-XPQ"/>
+                                        <exclude reference="F8r-ig-fZc"/>
                                     </mask>
                                     <mask key="constraints">
                                         <exclude reference="77y-av-ODb"/>
@@ -409,12 +426,16 @@ today?</string>
                                         <exclude reference="eVj-EG-x20"/>
                                         <exclude reference="eza-tD-u5Y"/>
                                         <exclude reference="iqq-Rq-AB3"/>
+                                        <exclude reference="EyF-kY-o46"/>
+                                        <exclude reference="mOG-Mu-vUt"/>
+                                        <exclude reference="v11-AG-WSW"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <mask key="subviews">
                                         <include reference="gCu-Qd-W0Z"/>
                                         <include reference="8DG-Vx-XPQ"/>
+                                        <include reference="F8r-ig-fZc"/>
                                     </mask>
                                     <mask key="constraints">
                                         <include reference="77y-av-ODb"/>
@@ -426,6 +447,9 @@ today?</string>
                                         <include reference="eVj-EG-x20"/>
                                         <include reference="eza-tD-u5Y"/>
                                         <include reference="iqq-Rq-AB3"/>
+                                        <include reference="EyF-kY-o46"/>
+                                        <include reference="mOG-Mu-vUt"/>
+                                        <include reference="v11-AG-WSW"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -495,6 +519,7 @@ today?</string>
                         <outlet property="locationSearchTextInput" destination="qgU-tj-5Mj" id="PvB-7H-W2X"/>
                         <outlet property="mapPostLocationView" destination="wLU-ui-uar" id="uxl-yP-Jbl"/>
                         <outlet property="navBarItem" destination="Ypd-Uc-ahb" id="mN9-Ao-OsM"/>
+                        <outlet property="submitButton" destination="F8r-ig-fZc" id="Mke-BY-KiV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xr7-QE-Q8i" userLabel="First Responder" sceneMemberID="firstResponder"/>

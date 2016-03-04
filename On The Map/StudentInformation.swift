@@ -16,6 +16,8 @@ struct StudentInformation {
     var firstName: String
     var lastName: String
     var mediaURL: String
+    var uniqueKey: String
+    var mapString: String
  
     // Static var to hold an array of StudentInformation structs for the app
     static var Students: [StudentInformation] = [StudentInformation]()
@@ -28,6 +30,19 @@ struct StudentInformation {
         firstName = dictionary[ParseClient.JSONResponseKeys.FirstName] as! String
         lastName = dictionary[ParseClient.JSONResponseKeys.LastName] as! String
         mediaURL = dictionary[ParseClient.JSONResponseKeys.MediaURL] as! String
+        uniqueKey = dictionary[ParseClient.JSONResponseKeys.UniqueKey] as! String
+        mapString = dictionary[ParseClient.JSONResponseKeys.MapString] as! String
+    }
+    
+    /* Construct StudentInformation struct with values */
+    init(uniqueKey: String, firstName: String, lastName: String, latitude: Double, longitude: Double, mediaURL: String, mapString: String) {
+        self.uniqueKey = uniqueKey
+        self.firstName = firstName
+        self.lastName = lastName
+        self.latitude = latitude
+        self.longitude = longitude
+        self.mediaURL = mediaURL
+        self.mapString = mapString
     }
     
     // MARK: - Helpers    

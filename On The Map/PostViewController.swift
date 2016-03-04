@@ -18,6 +18,7 @@ class PostViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var findLocationView: UIView!
     @IBOutlet weak var mapPostLocationView: UIView!
     @IBOutlet weak var locationMapView: MKMapView!
+    @IBOutlet weak var submitButton: UIButton!
     
     // MARK: - Properties
     var latitude: CLLocationDegrees?
@@ -40,6 +41,16 @@ class PostViewController: UIViewController, UITextFieldDelegate {
         // Set default text
         locationSearchTextInput.text = locationDefaultText
         linkTextInput.text = linkDefaultText
+        
+        // Add a gesture recognizer to look for taps, to close the keyboard
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        view.addGestureRecognizer(tap)
+        
+        // Set a background for the submit button
+        submitButton.backgroundColor = UIColor.lightGrayColor()
+        
+        // Disable autocorrect on link input
+        linkTextInput.autocorrectionType = UITextAutocorrectionType.No
     }
     
     // MARK: - Actions
@@ -51,7 +62,7 @@ class PostViewController: UIViewController, UITextFieldDelegate {
         // Show a wait overlay
         showWaitOverlay()
         if let text = locationSearchTextInput.text {
-            if !text.isEmpty {
+            if !text.isEmpty && text != locationDefaultText {
                 forwardGeocoding(text) {
                     (latitude, longitude, error) in
                     
@@ -65,6 +76,31 @@ class PostViewController: UIViewController, UITextFieldDelegate {
                         self.latitude = latitude
                         self.longitude = longitude
                         self.loadMapPostView()
+                    }
+                }
+            }
+        }
+    }
+    
+    /* Submit button tapped */
+    @IBAction func submitButtonTapped(sender: UIButton) {
+        
+        let udacityClient = UdacityClient.sharedInstance()
+        
+        // Check for media URL
+        if let mediaURL = linkTextInput.text {
+            if mediaURL != linkDefaultText && !mediaURL.isEmpty {
+                // Build a StudentInformation Struct
+                let studentInfo = StudentInformation(uniqueKey: udacityClient.userID!, firstName: udacityClient.firstName!, lastName: udacityClient.lastName!, latitude: Double(latitude!), longitude: Double(longitude!), mediaURL: mediaURL, mapString:   locationSearchTextInput.text!)
+                
+                ParseClient.sharedInstance().postStudentLocation(studentInfo) {
+                    (success, error) in
+                
+                    if let error = error {
+                        self.displayError(error.localizedDescription)
+                    } else {
+                        // Success.. close the modal
+                        self.dismissViewControllerAnimated(true, completion: nil)
                     }
                 }
             }
@@ -114,6 +150,11 @@ class PostViewController: UIViewController, UITextFieldDelegate {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
             regionRadius * 2.0, regionRadius * 2.0)
         locationMapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    /* Called when a tap is recognized */
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     // MARK: - UITextFieldDelegate

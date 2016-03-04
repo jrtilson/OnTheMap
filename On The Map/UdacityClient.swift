@@ -26,16 +26,25 @@ class UdacityClient: BaseClient {
         static let Password = "password"
     }
     
+    struct URLKeys {
+        static let UserID = "id"
+    }
+    
     struct JSONResponseKeys {
         static let Session = "session"
         static let Account = "account"
         static let ID = "id"
         static let Key = "key"
+        static let User = "user"
+        static let FirstName = "first_name"
+        static let LastName = "last_name"
     }
     
     // MARK: - Class Properties
     var sessionID : String? = nil
     var userID : String? = nil
+    var firstName: String? = nil
+    var lastName: String? = nil
     
     // MARK: - Init
     override init() {
@@ -55,15 +64,13 @@ class UdacityClient: BaseClient {
             UdacityClient.JSONBodyKeys.Password: password
         ]]
         
-        let parameters = [String: AnyObject]()
-        
         let headers = [
             "Accept": "application/json",
             "Content-Type": "application/json"
         ]
         
         /* 2. Make the request */
-        performPOST(method, parameters: parameters, jsonBody: jsonBody, additionalHTTPHeaders: headers) { JSONResult, error in
+        performPOST(method, parameters: [String: AnyObject](), jsonBody: jsonBody, additionalHTTPHeaders: headers) { JSONResult, error in
             
             /* 3. Send the desired value(s) to completion handler */
             if let error = error {
@@ -106,8 +113,46 @@ class UdacityClient: BaseClient {
         }
     }
     
-    /* Get user info */
-   // func getUserData(
+    /* Retrieve public user data */
+    func getAuthenticatedUserData(completionHandler: (success: Bool, error : NSError?) -> Void) {
+        
+        // Build up method, need to sub
+        var method : String = Methods.User
+        method = UdacityClient.substituteKeyInMethod(method, key: UdacityClient.URLKeys.UserID, value: userID!)!
+        
+        performGET(method, parameters: [String: AnyObject](), additionalHTTPHeaders: nil) { JSONResult, error in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                print(error)
+                completionHandler(success: false, error: error)
+            } else {
+                // Check for user key in result
+                guard let user = JSONResult[UdacityClient.JSONResponseKeys.User] as? [String: AnyObject] else {
+                    completionHandler(success: false, error: NSError(domain: "no user", code: 0, userInfo: [NSLocalizedDescriptionKey: "No user in result!"]))
+                    return
+                }
+                
+                // Check for first name key in result
+                guard let firstName = user[UdacityClient.JSONResponseKeys.FirstName] as? String else {
+                    completionHandler(success: false, error: NSError(domain: "no first name", code: 0, userInfo: [NSLocalizedDescriptionKey: "No first name in result!"]))
+                    return
+                }
+                
+                // Check for last name key in result
+                guard let lastName = user[UdacityClient.JSONResponseKeys.LastName] as? String else {
+                    completionHandler(success: false, error: NSError(domain: "no last name", code: 0, userInfo: [NSLocalizedDescriptionKey: "No last name in result!"]))
+                    return
+                }
+                
+                self.firstName = firstName
+                self.lastName = lastName
+                
+                completionHandler(success:true, error: nil)
+            }
+        }
+        
+    }
     
     /* Log user out of Udacity (delete session) */
     func deleteSession(completionHandler: (success: Bool, error: NSError?) -> Void) {

@@ -22,8 +22,8 @@ class ParseClient: BaseClient {
     
     struct JSONBodyKeys {
         static let UniqueKey = "uniqueKey"
-        static let FirstName = "FirstName"
-        static let LastName = "LastName"
+        static let FirstName = "firstName"
+        static let LastName = "lastName"
         static let MapString = "mapString"
         static let MediaURL = "mediaURL"
         static let Latitude = "latitude"
@@ -37,6 +37,9 @@ class ParseClient: BaseClient {
         static let Latitude = "latitude"
         static let Longitude = "longitude"
         static let MediaURL = "mediaURL"
+        static let ObjectID = "objectId"
+        static let UniqueKey = "uniqueKey"
+        static let MapString = "mapString"
     }
     
     struct ParameterKeys {
@@ -60,7 +63,7 @@ class ParseClient: BaseClient {
     
     // MARK: - API Actions
     
-    /* Get a student locations from Parse */
+    /* Get student locations from Parse */
     func getStudentLocations(limit: Int?, skip: Int?, order: String?, completionHandler: (result: [StudentInformation]?, error: NSError?) -> Void) {
         let method: String = Methods.StudentLocation
         
@@ -90,6 +93,44 @@ class ParseClient: BaseClient {
                 } else {
                     completionHandler(result: nil, error: NSError(domain: "getStudentLocations parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse getStudentLocations"]))
                 }
+            }
+        }
+    }
+    
+    /* Post student location information to the parse API */
+    func postStudentLocation(studentInfo: StudentInformation, completionHandler: (success: Bool, error: NSError?) -> Void) {
+        
+        let method = ParseClient.Methods.StudentLocation
+        
+        // Add local headers and combine with parse headers
+        let postHeaders: NSMutableDictionary = ["Content-Type": "application/json"]
+        postHeaders.addEntriesFromDictionary(parseHeaders)
+        
+        let headers = postHeaders as NSDictionary
+        
+        let jsonBody : [String:AnyObject] = [
+            ParseClient.JSONBodyKeys.FirstName: studentInfo.firstName,
+            ParseClient.JSONBodyKeys.LastName: studentInfo.lastName,
+            ParseClient.JSONBodyKeys.MediaURL: studentInfo.mediaURL,
+            ParseClient.JSONBodyKeys.UniqueKey: studentInfo.uniqueKey,
+            ParseClient.JSONBodyKeys.Latitude: studentInfo.latitude,
+            ParseClient.JSONBodyKeys.Longitude: studentInfo.longitude,
+            ParseClient.JSONBodyKeys.MapString: studentInfo.mapString
+        ]
+                
+        performPOST(method, parameters: [String:AnyObject](), jsonBody: jsonBody, additionalHTTPHeaders: headers as? [String : String]) {JSONResult, error in
+            
+            if let error = error {
+                print(error)
+                completionHandler(success: false, error: error)
+            } else {
+                // Check for session in result
+                guard let objectID = JSONResult[ParseClient.JSONResponseKeys.ObjectID] as? String else {
+                    completionHandler(success: false, error: NSError(domain: "no object ID", code: 0, userInfo: [NSLocalizedDescriptionKey: "No objectID in result!"]))
+                    return
+                }
+                print(objectID)
+                completionHandler(success: true, error: nil)
             }
         }
     }
