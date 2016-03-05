@@ -59,10 +59,10 @@ class PostViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func findButtonTapped(sender: UIButton) {
-        // Show a wait overlay
-        showWaitOverlay()
         if let text = locationSearchTextInput.text {
             if !text.isEmpty && text != locationDefaultText {
+                // Show a wait overlay
+                showWaitOverlay()
                 forwardGeocoding(text) {
                     (latitude, longitude, error) in
                     

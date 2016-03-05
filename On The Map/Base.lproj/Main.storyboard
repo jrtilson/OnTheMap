@@ -270,24 +270,23 @@ today?</string>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                                 <textInputTraits key="textInputTraits"/>
+                                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="8" y="18" width="384" height="221"/>
+                                                </variation>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstItem="qgU-tj-5Mj" firstAttribute="leading" secondItem="HnR-cC-6v3" secondAttribute="leading" constant="8" id="Hgz-El-V8J"/>
-                                            <constraint firstAttribute="trailing" secondItem="qgU-tj-5Mj" secondAttribute="trailing" constant="8" id="Y8K-0g-IiJ"/>
-                                            <constraint firstItem="qgU-tj-5Mj" firstAttribute="top" secondItem="HnR-cC-6v3" secondAttribute="top" constant="18" id="cy8-1p-4nW"/>
-                                            <constraint firstAttribute="bottom" secondItem="qgU-tj-5Mj" secondAttribute="bottom" constant="186" id="lxK-L8-MUH"/>
+                                            <constraint firstItem="qgU-tj-5Mj" firstAttribute="top" secondItem="HnR-cC-6v3" secondAttribute="top" constant="18" id="Bmj-Oj-MoW"/>
+                                            <constraint firstItem="qgU-tj-5Mj" firstAttribute="centerX" secondItem="HnR-cC-6v3" secondAttribute="centerX" id="yP3-Zu-RxP"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="subviews">
                                                 <exclude reference="qgU-tj-5Mj"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <exclude reference="Hgz-El-V8J"/>
-                                                <exclude reference="Y8K-0g-IiJ"/>
-                                                <exclude reference="cy8-1p-4nW"/>
-                                                <exclude reference="lxK-L8-MUH"/>
+                                                <exclude reference="Bmj-Oj-MoW"/>
+                                                <exclude reference="yP3-Zu-RxP"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=compact">
@@ -295,10 +294,8 @@ today?</string>
                                                 <include reference="qgU-tj-5Mj"/>
                                             </mask>
                                             <mask key="constraints">
-                                                <include reference="Hgz-El-V8J"/>
-                                                <include reference="Y8K-0g-IiJ"/>
-                                                <include reference="cy8-1p-4nW"/>
-                                                <include reference="lxK-L8-MUH"/>
+                                                <include reference="Bmj-Oj-MoW"/>
+                                                <include reference="yP3-Zu-RxP"/>
                                             </mask>
                                         </variation>
                                     </view>
